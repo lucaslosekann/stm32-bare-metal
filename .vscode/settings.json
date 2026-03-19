@@ -1,0 +1,12 @@
+{
+    "cortex-debug.armToolchainPath": "/usr/bin/",
+    "cortex-debug.gdbPath": "/usr/bin/gdb",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}",
+            "binaryPath": "${workspaceFolder}/firmware.elf",
+            "binaryArgs": []
+        }
+    ],
+    "cortex-debug.variableUseNaturalFormat": false
+}

@@ -1,0 +1,24 @@
+#ifndef __RCC_H
+#define __RCC_H
+
+#include "f411.h"
+
+struct rcc {
+    volatile uint32_t CR, PLLCFGR, CFGR, CIR, AHB1RSTR, AHB2RSTR, RESERVED0[2], APB1RSTR, APB2RSTR, RESERVED1[2], AHB1ENR, AHB2ENR, RESERVED2[2], APB1ENR,
+        APB2ENR, RESERVED3[2], AHB1LPENR, AHB2LPENR, RESERVED4[2], APB1LPENR, APB2LPENR, RESERVED5[2], BDCR, CSR, RESERVED6[2], SSCGR, PLLI2SCFGR;
+};
+#define RCC ((struct rcc *)0x40023800)
+
+/* On AHB1ENR */
+#define GPIOA_ENABLE BIT(0)
+#define GPIOB_ENABLE BIT(1)
+#define GPIOC_ENABLE BIT(2)
+#define GPIOD_ENABLE BIT(3)
+#define GPIOE_ENABLE BIT(4)
+#define GPIOH_ENABLE BIT(7)
+
+/* On APB2ENR */
+#define SPI1_ENABLE BIT(12)
+
+void rcc_init(void);
+#endif /* __RCC_H */
