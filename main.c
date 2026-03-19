@@ -26,39 +26,34 @@ int main(void) {
     // Initialize SysTick
     systick_init(SYS_FREQUENCY / 1000); // 1ms SysTick
 
-    uint16_t led = PIN('C', 13); // Blue LED
+    // Config indicator LED
+    uint16_t led_pin = PIN('C', 13);
     gpio_cfg_t led_gpio_config = {.mode = GPIO_MODE_OUTPUT, .pupd = 0, .type = 0, .speed = 0};
-    gpio_config_pin(led, led_gpio_config); // Set blue LED to output mode
-    gpio_write(led, true);
+    gpio_config_pin(led_pin, led_gpio_config);
+    gpio_write(led_pin, true);
 
-    uint16_t sck_pin = PIN('A', 5);
-    uint16_t mosi_pin = PIN('A', 7);
-    uint16_t miso_pin = PIN('A', 6);
-    uint16_t cs_pin = PIN('A', 4);
-
+    // Config SPI1
     spi_cfg_t spi1_cfg = {
-        .baud_rate_control = SPI_BDC_64,
+        .baud_rate_control = SPI_BDC_2,
         .type = SPI_TYPE_MASTER,
-        .miso_pin = miso_pin,
-        .mosi_pin = mosi_pin,
-        .sck_pin = sck_pin,
-        .cs_pin = cs_pin,
+        .miso_pin = PIN('A', 6),
+        .mosi_pin = PIN('A', 7),
+        .sck_pin = PIN('A', 5),
+        .cs_pin = PIN('A', 4),
     };
-
     spi_dev_t spi1 = {
         .port = SPI1,
         .cfg = spi1_cfg,
     };
-
     spi_config(&spi1);
 
-    // 4. Read JEDEC ID (0x9F)
+    // Read JEDEC ID (0x9F)
     uint8_t id[3] = {0};
     flash_command(&spi1, 0x9F, id, 3);
 
     volatile uint32_t jedec = (id[0] << 16) | (id[1] << 8) | id[2];
     if (jedec == 0xEF4017) {
-        gpio_write(led, false);
+        gpio_write(led_pin, false);
     } else {
         while (true)
             ;
