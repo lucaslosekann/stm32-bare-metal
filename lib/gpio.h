@@ -22,5 +22,5 @@ typedef struct {
 void gpio_config_pin(uint16_t pin, gpio_cfg_t cfg);
 void gpio_write(uint16_t pin, bool val);
 bool gpio_read(uint16_t pin);
-
+void gpio_set_af(uint16_t pin, uint8_t af);
 #endif /* __GPIO_H */

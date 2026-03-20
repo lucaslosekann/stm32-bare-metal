@@ -26,3 +26,16 @@ bool gpio_read(uint16_t pin) {
     struct gpio *gpio = GPIO(PINBANK(pin));
     return gpio->IDR & BIT(PINNO(pin)) ? true : false;
 }
+
+void gpio_set_af(uint16_t pin, uint8_t af) {
+    struct gpio *gpio = GPIO(PINBANK(pin));
+    int n = PINNO(pin);
+
+    if (n < 8) {
+        gpio->AFR[0] &= ~(0xFU << (n * 4));    // Clear existing setting
+        gpio->AFR[0] |= (af & 0xF) << (n * 4); // Set new AF
+    } else {
+        gpio->AFR[1] &= ~(0xFU << ((n - 8) * 4));    // Clear existing setting
+        gpio->AFR[1] |= (af & 0xF) << ((n - 8) * 4); // Set new AF
+    }
+}

@@ -32,15 +32,18 @@ void spi_config(spi_dev_t *dev) {
     gpio_config_pin(dev->cfg.mosi_pin, mosi_pin_cfg);
     gpio_config_pin(dev->cfg.miso_pin, miso_pin_cfg);
     gpio_config_pin(dev->cfg.cs_pin, cs_pin_cfg);
+    uint8_t AF = 0;
     if (dev->port == SPI1) {
-        GPIO(0)->AFR[0] &= ~((0xFU << (PINNO(dev->cfg.sck_pin) * 4)) | (0xFU << (PINNO(dev->cfg.miso_pin) * 4)) | (0xFU << (PINNO(dev->cfg.mosi_pin) * 4)));
-
-        GPIO(0)->AFR[0] |= ((5 << (PINNO(dev->cfg.sck_pin) * 4)) | (5 << (PINNO(dev->cfg.miso_pin) * 4)) | (5 << (PINNO(dev->cfg.mosi_pin) * 4)));
+        AF = 5;
     } else {
         // To be implemented: Other ports
         while (true)
             ;
     }
+    gpio_set_af(dev->cfg.sck_pin, AF);
+    gpio_set_af(dev->cfg.miso_pin, AF);
+    gpio_set_af(dev->cfg.mosi_pin, AF);
+
     gpio_write(dev->cfg.cs_pin, true);
 
     dev->port->CR1 &= ~((1U << 0) | (1U << 1)); // Mode 0
