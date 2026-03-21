@@ -2,7 +2,19 @@
 #define __SYSCLOCK_H
 
 #include "f411.h"
-#include "main.h"
+
+#define HSE_SPEED_MHZ 25
+
+enum {
+    PLL_M = 25,
+    PLL_N = 192,
+    PLL_P = 2,
+    PLL_Q = 4,
+};
+
+#define APB1_DIV APB_DIV2
+#define FLASH_LATENCY 3
+#define SYS_FREQUENCY ((HSE_SPEED_MHZ * PLL_N / PLL_M / PLL_P) * 1000000)
 
 #define APB_DIV1 0b000
 #define APB_DIV2 0b100

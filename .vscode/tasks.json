@@ -2,9 +2,12 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "build",
+			"label": "build-bootloader",
 			"type": "shell",
 			"command": "make",
+            "options": {
+                "cwd": "bootloader"
+            },
 			"args": ["all"],
 			"group": {
 				"kind": "build",
@@ -18,30 +21,87 @@
 				"panel": "shared"
 			}
 		},
+        {
+            "label": "build-firmware",
+            "type": "shell",
+            "command": "make",
+            "args": ["all"],
+            "options": {
+                "cwd": "firmware"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
 		{
-			"label": "flash",
+			"label": "flash-bootloader",
 			"type": "shell",
+            "options": {
+                "cwd": "bootloader"
+            },
 			"command": "make",
 			"args": ["flash"],
-			"dependsOn": ["build"],
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared"
-			},
-		},
-		{
-			"label": "clean",
-			"type": "shell",
-			"command": "make",
-			"args": ["clean"],
+			"dependsOn": ["build-bootloader"],
 			"presentation": {
 				"echo": true,
 				"reveal": "always",
 				"focus": false,
 				"panel": "shared"
 			}
-		}
+		},
+        {
+            "label": "flash-firmware",
+            "type": "shell",
+            "command": "make",
+            "args": ["flash"],
+            "options": {
+                "cwd": "firmware"
+            },
+            "dependsOn": ["build-firmware"],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+		{
+			"label": "clean-bootloader",
+			"type": "shell",
+			"command": "make",
+			"args": ["clean"],
+			"options": {
+				"cwd": "bootloader"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			}
+		},
+        {
+            "label": "clean-firmware",
+            "type": "shell",
+            "command": "make",
+            "args": ["clean"],
+            "options": {
+                "cwd": "firmware"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
 	]
 }

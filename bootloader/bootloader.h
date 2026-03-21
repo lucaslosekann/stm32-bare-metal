@@ -1,0 +1,10 @@
+#ifndef __BOOTLOADER_H
+#define __BOOTLOADER_H
+
+#include "f411.h"
+
+#define BOOT_APP_MAGIC 0xDEADBEEF
+#define BOOTLOADER_SIZE (0x8000U)
+#define MAIN_APP_START_ADDRESS (0x08000000 + BOOTLOADER_SIZE)
+
+#endif /* __BOOTLOADER_H */

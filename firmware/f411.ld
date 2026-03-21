@@ -10,9 +10,15 @@ MEMORY {
 _estack     = ORIGIN(sram) + LENGTH(sram);       /* stack points to end of SRAM */
 
 SECTIONS {
-  .vectors  : { KEEP(*(.vectors)) }   > flash
-  .text     : { *(.text*) }           > flash
-  .rodata   : { *(.rodata*) }         > flash
+  .text : {
+      KEEP (*(.bootloader_section))
+
+      KEEP(*(.vectors))
+      *(.text*)	/* Program code */
+      . = ALIGN(4);
+      *(.rodata*)	/* Read-only data */
+      . = ALIGN(4);
+  } >flash
 
   .data : {
     _sdata = .;                                  /* .data section start */

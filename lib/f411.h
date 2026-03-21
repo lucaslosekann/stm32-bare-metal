@@ -16,6 +16,7 @@
 #include "nvs.h"
 #include "rcc.h"
 #include "return_codes.h"
+#include "scb.h"
 #include "spi.h"
 #include "sysclock.h"
 #include "systick.h"

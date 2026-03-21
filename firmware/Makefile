@@ -4,13 +4,17 @@ SIZE    = arm-none-eabi-size
 
 # Project Structure
 ROOTDIR := $(CURDIR)
-LIBDIR   = $(ROOTDIR)/lib
+LIBDIR   = $(ROOTDIR)/../lib
 BUILD_DIR = build
 
 # Source Files
-SRCS = main.c $(wildcard $(LIBDIR)/*.c)
+C_SRCS := firmware.c $(wildcard $(LIBDIR)/*.c)
+S_SRCS := bootloader.s
+SRCS := $(C_SRCS) $(S_SRCS)
 # Transform source paths to object paths in the build directory
-OBJS = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.c=.o)))
+OBJS := $(addprefix $(BUILD_DIR)/, \
+        $(notdir $(C_SRCS:.c=.o) $(S_SRCS:.s=.o)))
+		
 # Transform object paths to dependency paths
 DEPS = $(OBJS:.o=.d)
 
@@ -46,6 +50,11 @@ $(BUILD_DIR)/firmware.elf: $(OBJS)
 
 # Compile C Files
 $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+
+#Compile S files
+$(BUILD_DIR)/%.o: %.s | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create build directory if it doesn't exist

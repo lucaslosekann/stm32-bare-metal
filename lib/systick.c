@@ -12,5 +12,4 @@ void systick_init(uint32_t ticks) {
 
 // Systick interrupt handler
 _weak void systick_handler(void) { // Weak attribute allows user to override this handler
-    ++s_ticks;
 }

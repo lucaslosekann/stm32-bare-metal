@@ -4,7 +4,12 @@
     "makefile.launchConfigurations": [
         {
             "cwd": "${workspaceFolder}",
-            "binaryPath": "${workspaceFolder}/build/firmware.elf",
+            "binaryPath": "${workspaceFolder}/firmware/build/firmware.elf",
+            "binaryArgs": []
+        },
+        {
+            "cwd": "${workspaceFolder}",
+            "binaryPath": "${workspaceFolder}/bootloader/build/bootloader.elf",
             "binaryArgs": []
         }
     ],
