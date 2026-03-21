@@ -13,7 +13,9 @@
 
 #include "flash.h"
 #include "gpio.h"
+#include "nvs.h"
 #include "rcc.h"
+#include "return_codes.h"
 #include "spi.h"
 #include "sysclock.h"
 #include "systick.h"

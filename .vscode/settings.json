@@ -4,9 +4,9 @@
     "makefile.launchConfigurations": [
         {
             "cwd": "${workspaceFolder}",
-            "binaryPath": "${workspaceFolder}/firmware.elf",
+            "binaryPath": "${workspaceFolder}/build/firmware.elf",
             "binaryArgs": []
         }
     ],
-    "cortex-debug.variableUseNaturalFormat": true
+    "cortex-debug.variableUseNaturalFormat": false
 }

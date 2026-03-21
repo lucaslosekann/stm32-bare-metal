@@ -53,7 +53,7 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 flash: $(BUILD_DIR)/firmware.bin
-	sudo st-flash --reset write $< 0x8000000
+	sudo st-flash --reset write $< 0x08000000
 
 clean:
 	rm -rf $(BUILD_DIR)
